@@ -1,0 +1,49 @@
+# +-----------------------------------------------------
+# |         SPRING COMMON CONFIGURATION
+# +-----------------------------------------------------
+spring:
+  rabbitmq:
+    host: "${RABBITMQ_HOST:localhost}"
+    port: 5672
+    username: "${RABBITMQ_USER:pica}"
+    password: "${RABBITMQ_PASS:Pica2020++}"
+    listener:
+      simple:
+        retry:
+          enabled: true
+          initial-interval: 3s
+          max-attempts: 6
+          max-interval: 10s
+          multiplier: 2
+    
+# +-----------------------------------------------------
+# |         EUREKA CLIENT CONFIG
+# +-----------------------------------------------------
+eureka:
+  instance:
+    hostname: ${EUREKA_HOST:discovery-server}
+  client:
+    region: default
+    service-url:
+      defaultZone: ${EUREKA_SERVER:http://localhost:9091/eureka}
+    registry-fetch-interval-seconds: 5
+
+# +-----------------------------------------------------
+# |         MONITORING CONFIG
+# +-----------------------------------------------------
+management:
+  endpoints:
+    web:
+      base-path: /monitor/actuator
+      exposure:
+        include: "*"
+    
+# +-----------------------------------------------------
+# |         LOGGING CONFIGURATION
+# +-----------------------------------------------------    
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.springframework.data: DEBUG
+    org.springframework.amqp: DEBUG
+    co.edu.javeriana: DEBUG

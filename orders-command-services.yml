@@ -1,0 +1,25 @@
+server:
+  port: 8089
+  servlet:
+    context-path: /orders
+
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_ORDER_COMMAND_HOST:localhost}:3308/ordercommanddb
+    username: orders
+    password: orders2020++
+
+events:
+  amqp:
+    exchange: orders-exchange-events
+    queue: orders-queue-command
+    routing-key: orders-command-key
+  dead-letter:
+    exchange: orders-exchange-deadletter
+    queue: orders-queue-deadletter
+    routing-key: orders-deadletter-key
+    
+management:
+    server:
+      port: 6089

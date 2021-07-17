@@ -1,0 +1,26 @@
+# +-----------------------------------------------------
+# |         SERVER CONFIG
+# +-----------------------------------------------------
+server:
+  port: 8091
+  servlet:
+    context-path: /bl
+    session:
+      cookie:
+        name: UISESSION
+
+soap:
+  service:
+    bl:
+      host: ${BL_HOST:localhost}
+      port: ${BL_PORT:7071}
+      url: http://${soap.service.bl.host}:${soap.service.bl.port}/bolivariano/ws
+
+management:
+    server:
+      port: 6091
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    co.edu.javeriana: DEBUG

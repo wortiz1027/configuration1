@@ -1,0 +1,29 @@
+# +-----------------------------------------------------
+# |         SERVER CONFIG
+# +-----------------------------------------------------
+server:
+  port: 8099
+  servlet:
+    context-path: /bpm
+    session:
+      cookie:
+        name: UISESSION
+
+soap:
+  service:
+    bpm:    
+      host: ${BPM_HOST:10.100.136.172}
+      port: ${BPM_PORT:9080}
+      init-instance:
+        url: http://${soap.service.bpm.host}:${soap.service.bpm.port}/teamworks/webservices/TOB/wsIniciarPaqueteTuristico.tws
+      cancel-instance:
+        url: http://${soap.service.bpm.host}:${soap.service.bpm.port}/teamworks/webservices/TOB/wsCancelarProceso.tws
+      
+management:
+    server:
+      port: 6099
+      
+logging:
+  level:
+    org.springframework.web: DEBUG
+    co.edu.javeriana: DEBUG

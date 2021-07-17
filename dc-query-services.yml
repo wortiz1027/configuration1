@@ -1,0 +1,26 @@
+# +-----------------------------------------------------
+# |         SERVER CONFIG
+# +-----------------------------------------------------
+server:
+  port: 8092
+  servlet:
+    context-path: /dc
+    session:
+      cookie:
+        name: UISESSION
+
+soap:
+  service:
+    dc:
+      host: ${DC_HOST:localhost}
+      port: ${DC_PORT:7072}
+      url: http://${soap.service.dc.host}:${soap.service.dc.port}/dancarlton/ws
+
+management:
+    server:
+      port: 6092
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    co.edu.javeriana: DEBUG

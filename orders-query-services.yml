@@ -1,0 +1,24 @@
+server:
+  port: 8090
+  servlet:
+    context-path: /orders
+
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_ORDER_QUERY_HOST:localhost}:3309/orderquerydb
+    username: orders
+    password: orders2020++
+
+events:
+  amqp:
+    queue: orders-queue-command
+  rpc:
+    orders:
+        exchange: ord-cmpg-exchange-events
+        queue: ord-cmpg-queue-query-request
+        routing-key: ord-cmpg-events-key
+
+management:
+    server:
+      port: 6090

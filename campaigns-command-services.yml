@@ -1,0 +1,35 @@
+server:
+  port: 8087
+  servlet:
+    context-path: /campaigns
+
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_CAMPAIGNS_COMMAND_HOST:localhost}:3305/campaignscommanddb
+    username: campaign
+    password: campaign2020++
+
+events:
+  amqp:
+    campaign:
+        exchange: campaigns-exchange-events
+        queue: campaigns-queue-command
+        routing-key: campaigns-command-key
+    campaignproduct:
+        exchange: campaigns-product-exchange-events
+        queue: campaigns-product-queue-command
+        routing-key: campaigns-product-command-key
+  deadletter:
+    campaign:
+        exchange: campaigns-exchange-deadletter
+        queue: campaigns-queue-deadletter
+        routing-key: campaigns-deadletter-key
+    campaignproduct:
+        exchange: campaigns-product-exchange-deadletter
+        queue: campaigns-product-queue-deadletter
+        routing-key: campaigns-product-deadletter-key
+        
+management:
+    server:
+      port: 6087        

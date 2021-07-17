@@ -1,0 +1,23 @@
+server:
+  port: 8086
+  servlet:
+    context-path: /avianca
+    session:
+      cookie:
+        name: UISESSION
+
+soap:
+  service:
+    avianca:
+      url: http://www.javeriana.somee.com/AviancaService.svc?wsdl
+
+management:
+    server:
+      port: 6086
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.springframework.data: DEBUG
+    org.springframework.amqp: DEBUG
+    co.edu.javeriana.products: DEBUG

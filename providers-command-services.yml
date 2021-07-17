@@ -1,0 +1,11 @@
+rabbitmq:
+    host: "${RABBITMQ_HOST:localhost}"
+    port: 5672
+    username: "${RABBITMQ_USER:pica}"
+    password: "${RABBITMQ_PASS:Pica2020++}"
+    
+events:
+  amqp:
+    exchange: providers-exchange-events
+    queue: providers-queue-command
+    routing-key: providers-command-key

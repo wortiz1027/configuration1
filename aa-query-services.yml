@@ -1,0 +1,26 @@
+# +-----------------------------------------------------
+# |         SERVER CONFIG
+# +-----------------------------------------------------
+server:
+  port: 8085
+  servlet:
+    context-path: /aa
+    session:
+      cookie:
+        name: UISESSION
+
+soap:
+  service:
+    aa:
+      host: ${AA_HOST:10.39.1.130}
+      port: ${AA_PORT:7070}
+      url: http://${soap.service.aa.host}:${soap.service.aa.port}/bookings/ws
+
+management:
+    server:
+      port: 6085
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    co.edu.javeriana: DEBUG

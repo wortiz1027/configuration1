@@ -1,0 +1,33 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /products
+
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_PRODUCT_QUERY_HOST:localhost}:3302/productquerydb
+    username: product
+    password: product2020++
+
+rest:
+  vendors:
+    services-id: vendors-query-services
+    uri: /vendors/api/v1/vendors/informations
+
+events:
+  amqp:
+    queue: products-queue-command    
+  rpc:
+    products:
+        exchange: prd-cmpg-exchange-events
+        queue: prd-cmpg-queue-query-request
+        routing-key: prd-cmpg-events-key
+    images:
+        exchange: images-exchange-events
+        queue: image-queue-query-response
+        routing-key: images-events-key
+
+management:
+    server:
+      port: 6082

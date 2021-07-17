@@ -1,0 +1,148 @@
+# +-----------------------------------------------------
+# |         SERVER CONFIG
+# +-----------------------------------------------------
+server:
+  port: 9092
+
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+
+pica:
+  resources:
+    id: oauth/pica
+
+# +-----------------------------------------------------
+# |         GATEWAY CONFIG
+# +-----------------------------------------------------
+zuul:
+  sensitiveHeaders: Cookie,Set-Cookie
+  routes:
+    uua:
+      path: /uua/oauth/token/**
+      url: http://${SECURITY_HOST:localhost}:9050/oauth/token
+    security:
+      path: /security/users/**
+      url: http://${SECURITY_HOST:localhost}:9050/security/api/v1/users
+    registry:
+      path: /registry/users/**
+      url: http://${SECURITY_HOST:localhost}:9050/registry/api/v1/users
+    products-commands:
+      path: /products/cmd/**
+      url: http://${PRODUCT_HOST:localhost}:8081/products/api/v1/products
+    products-queries:
+      path: /products/qrs/**
+      url: http://${PRODUCT_HOST:localhost}:8082/products/api/v1/products
+    products-queries-text:
+      path: /products/qrs/text/**
+      url: http://${PRODUCT_HOST:localhost}:8082/products/api/v1/products/text
+    products-queries-details:
+      path: /products/qrs/details/**
+      url: http://${PRODUCT_HOST:localhost}:8082/products/api/v1/products/details
+    images-commands:
+      path: /images/cmd/**
+      url: http://${IMAGES_HOST:localhost}:8083/images/api/v1/images    
+    images-queries:
+      path: /images/qrs/**
+      url: http://${IMAGES_HOST:localhost}:8084/images/api/v1/images
+    aa-flights-queries:
+      path: /aa/**
+      url: http://${EXTERNAL_HOST:localhost}:8085/aa/api/v1/flights
+    avianca-flight-queries:
+      path: /avianca/**
+      url: http://${EXTERNAL_HOST:localhost}:8086/avianca/api/v1/flights
+    campaigns-commands:
+      path: /campaigns/cmd/products/**
+      url: http://${CAMPAIGNS_HOST:localhost}:8087/campaigns/api/v1/campaigns/products
+    campaigns-products-commands:
+      path: /campaigns/cmd/**
+      url: http://${CAMPAIGNS_HOST:localhost}:8087/campaigns/api/v1/campaigns
+    campaigns-queries:
+      path: /campaigns/qrs/**
+      url: http://${CAMPAIGNS_HOST:localhost}:8088/campaigns/api/v1/campaigns
+    campaigns-detail-queries:
+      path: /campaigns/qrs/details/**
+      url: http://${CAMPAIGNS_HOST:localhost}:8088/campaigns/api/v1/campaigns/details
+    campaigns-text-queries:
+      path: /campaigns/qrs/text/**
+      url: http://${CAMPAIGNS_HOST:localhost}:8088/campaigns/api/v1/campaigns/text  
+    orders-commands:
+      path: /orders/cmd/**
+      url: http://${ORDERS_HOST:localhost}:8089/orders/api/v1/order
+    orders-queries-all:
+      path: /orders/qrs/all/**
+      url: http://${ORDERS_HOST:localhost}:8090/orders/api/v1/orders
+    orders-queries:
+      path: /orders/qrs/**
+      url: http://${ORDERS_HOST:localhost}:8090/orders/api/v1/order
+    bl-journeys-queries:
+      path: /bl/**
+      url: http://${EXTERNAL_HOST:localhost}:8091/bl/api/v1/journeys
+    cd-bookings-queries:
+      path: /dc/**
+      url: http://${EXTERNAL_HOST:localhost}:8092/dc/api/v1/bookings
+    cd-bookings-code-queries:
+      path: /dc/code/**
+      url: http://${EXTERNAL_HOST:localhost}:8092/dc/api/v1/bookings/code
+    notifications-services:
+      path: /notifications/**
+      url: http://${NOTIFICATIONS_HOST:localhost}:8093/notifications/api/v1/email
+    providers-commands:
+      path: /providers/cmd/**
+      url: http://${PROVIDERS_HOST:localhost}:8094/providers/api/v1/vendors
+    providers-queries:
+      path: /providers/qrs/**
+      url: http://${PROVIDERS_HOST:localhost}:8095/providers/api/v1/vendors
+    ht-bookings-queries:
+      path: /ht/**
+      url: http://${EXTERNAL_HOST:localhost}:8096/ht/api/v1/bookings
+    pay-validations-queries:
+      path: /pay/validations/**
+      url: http://${EXTERNAL_HOST:localhost}:8097/pay/api/v1/validations
+    pay-charge-queries:
+      path: /pay/charge/**
+      url: http://${EXTERNAL_HOST:localhost}:8097/pay/api/v1/charge
+    cc-card-queries:
+      path: /cc/**
+      url: http://${EXTERNAL_HOST:localhost}:8098/cc/api/v1/validation
+    bpm-command-instance:
+      path: /bpm/instance/**
+      url: http://${BPM_COMMAND_HOST:localhost}:8099/bpm/api/v1/instance
+    bpm-command-cancel:
+      path: /bpm/cancel/**
+      url: http://${BPM_COMMAND_HOST:localhost}:8099/bpm/api/v1/cancel
+    vendors-commands:
+      path: /vendors/cmd/**
+      url: http://${VENDORS_COMMAND_HOST:localhost}:8100/vendors/api/v1/vendors
+    vendors-queries:
+      path: /vendors/qrs/**
+      url: http://${VENDORS_QUERY_HOST:localhost}:8101/vendors/api/v1/vendors  
+
+# +-----------------------------------------------------
+# |         SPRING ACTUATOR MONITORING
+# +-----------------------------------------------------
+      
+management:
+    server:
+      port: 6192
+      
+# +-----------------------------------------------------
+# |         SPRING SECURITY JWT
+# +-----------------------------------------------------
+
+security:
+  jwt:
+    public-key: classpath:public-key
+
+# +-----------------------------------------------------
+# |         SPRING LOGGIN CONFIG
+# +-----------------------------------------------------
+logging:
+  level:
+    org.springframework.web: DEBUG
+    co.edu.javeriana: DEBUG
+  pattern:
+    console: "%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"

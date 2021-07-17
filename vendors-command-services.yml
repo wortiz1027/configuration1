@@ -1,0 +1,25 @@
+server:
+  port: 8100
+  servlet:
+    context-path: /vendors
+
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_VENDORS_COMMAND_HOST:localhost}:3310/vendorcommanddb
+    username: vendor
+    password: vendors2020++
+
+events:
+  amqp:
+    exchange: vendors-exchange-events
+    queue: vendors-queue-command
+    routing-key: vendors-command-key
+  dead-letter:
+    exchange: vendors-exchange-deadletter
+    queue: vendors-queue-deadletter
+    routing-key: vendors-deadletter-key
+
+management:
+    server:
+      port: 6100

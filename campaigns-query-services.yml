@@ -1,0 +1,31 @@
+server:
+  port: 8088
+  servlet:
+    context-path: /campaigns
+
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_CAMPAIGNS_QUERY_HOST:localhost}:3307/campaignsquerydb
+    username: campaign
+    password: campaign2020++
+
+events:
+  amqp:
+    campaign:
+        queue: campaigns-queue-command
+    campaignproduct:
+        queue: campaigns-product-queue-command
+  rpc:
+    images:
+        exchange: images-exchange-events
+        queue: image-queue-query-response
+        routing-key: images-events-key
+    products:
+        exchange: prd-cmpg-exchange-events
+        queue: prd-cmpg-queue-query-response
+        routing-key: prd-cmpg-events-key
+        
+management:
+    server:
+      port: 6088        

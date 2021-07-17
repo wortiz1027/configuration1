@@ -1,0 +1,41 @@
+# +-----------------------------------------------------
+# |         SERVER CONFIG
+# +-----------------------------------------------------
+server:
+  port: 8093
+  servlet:
+    context-path: /notifications
+    session:
+      cookie:
+        name: UISESSION
+
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    protocol: smtp
+    username: usuario1Javeriana@gmail.com
+    password: dnirccsouabjtcjq
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  freemarker:
+    enabled: true
+    cache: false
+    suffix: .ftl
+    template-loader-path: 
+        - file:/tmp/templates
+        #- file:c:\tmp\templates
+    
+management:
+    server:
+      port: 6093
+    
+logging:
+  level:
+    org.springframework.web: DEBUG
+    co.edu.javeriana: DEBUG

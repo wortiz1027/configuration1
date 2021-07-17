@@ -1,0 +1,42 @@
+server:
+  port: 8083
+  servlet:
+    context-path: /images
+
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 200MB
+      max-request-size: 215MB
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_IMAGES_COMMAND_HOST:localhost}:3303/imagescommandb
+    username: image
+    password: image2020++
+
+events:
+  amqp:
+    exchange: images-exchange-events
+    queue: images-queue-command
+    routing-key: images-command-key
+  dead-letter:
+    exchange: images-exchange-deadletter
+    queue: images-queue-deadletter
+    routing-key: images-deadletter-key
+
+management:
+    server:
+      port: 6083
+
+images:
+  resources:
+    protocole: http
+    host: ${IMAGE_HOST:localhost}
+    port: 8083
+    url: ${images.resources.protocole}://%s:${images.resources.port}/images/resources/load/%s
+  files:
+    upload:
+      directory: /tmp/upload/
+      #directory: c:\tmp\upload\

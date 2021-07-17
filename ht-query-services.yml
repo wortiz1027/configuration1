@@ -1,0 +1,28 @@
+# +-----------------------------------------------------
+# |         SERVER CONFIG
+# +-----------------------------------------------------
+server:
+  port: 8096
+  servlet:
+    context-path: /ht
+    session:
+      cookie:
+        name: UISESSION
+
+client:
+  host: ${HT_HOST:127.0.0.1}
+  port: ${HT_PORT:80}
+
+rest:
+  api:
+    url:
+      booking: http://${client.host}:${client.port}/api/Booking
+
+management:
+    server:
+      port: 6096
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    co.edu.javeriana: DEBUG
